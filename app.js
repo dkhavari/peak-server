@@ -1,8 +1,8 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
 /* Set up the app preferences. */
-app.use( require('body-parser').urlencoded({ 'extended': true }) );
+app.use( require('body-parser').urlencoded({ 'extended': true }) )
 
 /* DB variable. */
 var db;
@@ -19,9 +19,17 @@ MongoClient.connect('mongodb://peak-user:littlebylittle@ds023485.mlab.com:23485/
 
 /* Create some routes. */
 app.get('/', (req, res) => {
-  res.send('Hello world!');
+  res.send('Peak text messaging server version 1.0.')
 })
 
 app.post('/sms', (req, res) => {
-  console.log('We\'ve received a text: ', req.body);
+
+  const data = req.body
+  const message = data.Body
+  const sender = data.From
+
+  console.log('We\'ve received a text...')
+  console.log('It\'s from: ', sender)
+  console.log('Message: ', message)
+
 })
