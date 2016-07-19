@@ -40,7 +40,7 @@ app.post('/sms', (req, res) => {
     'Today is the best day for massive action! (3 minutes of stretching).'
   ]
 
-  return client.sendMessage({
+  client.sendMessage({
 
       to: '+16507141506', // Any number Twilio can deliver to
       from: '+16506141866', // A number you bought from Twilio and can use for outbound communication
