@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 /* Set up the app preferences. */
-app.use( require('body-parser').json() );
+app.use( express.urlencoded() );
 
 /* DB variable. */
 var db;
