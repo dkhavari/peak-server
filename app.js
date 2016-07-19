@@ -1,8 +1,10 @@
 const express = require('express')
+const twilio = require('twilio')
 const app = express()
 
 /* Set up the app preferences. */
 app.use( require('body-parser').urlencoded({ 'extended': true }) )
+const client = twilio('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f64c16992af455')
 
 /* DB variable. */
 var db;
@@ -31,5 +33,13 @@ app.post('/sms', (req, res) => {
   console.log('We\'ve received a text...')
   console.log('It\'s from: ', sender)
   console.log('Message: ', message)
+
+  client.messages.create({
+    body: 'Hi there, muffer!',
+    to: '+6507141506',  // Text this number
+    from: '+6506141866' // From a valid Twilio number
+  }, function(err, message) {
+    console.log(message.sid);
+  });
 
 })
