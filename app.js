@@ -18,6 +18,10 @@ MongoClient.connect('mongodb://peak-user:littlebylittle@ds023485.mlab.com:23485/
 })
 
 /* Create some routes. */
+app.get('/', (req, res) => {
+  res.send('Hello world!');
+})
+
 app.get('/sms', (req, res) => {
   console.log('We\'ve received a text: ', req.body);
 })
