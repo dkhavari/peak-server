@@ -35,8 +35,8 @@ app.post('/sms', (req, res) => {
 
   client.sendMessage({
 
-      to: '+6507141506', // Any number Twilio can deliver to
-      from: '+6506141866', // A number you bought from Twilio and can use for outbound communication
+      to: '+16507141506', // Any number Twilio can deliver to
+      from: '+16506141866', // A number you bought from Twilio and can use for outbound communication
       body: 'I love you bb.' // body of the SMS message
 
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
