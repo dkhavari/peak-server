@@ -22,6 +22,6 @@ app.get('/', (req, res) => {
   res.send('Hello world!');
 })
 
-app.get('/sms', (req, res) => {
+app.post('/sms', (req, res) => {
   console.log('We\'ve received a text: ', req.body);
 })
