@@ -33,11 +33,18 @@ app.post('/sms', (req, res) => {
   console.log('It\'s from: ', sender)
   console.log('Message: ', message)
 
+  const responses = [
+    'Great work. Absolutely massive!',
+    'You can do it! You\'ll be proud after you\'ve finished!',
+    'Morning, David! Take 3 minutes to complete your activity: stretching.',
+    'Today is the best day for massive action! [3 minutes of stretching].'
+  ]
+
   return client.sendMessage({
 
       to: '+16507141506', // Any number Twilio can deliver to
       from: '+16506141866', // A number you bought from Twilio and can use for outbound communication
-      body: 'I love you bb.' // body of the SMS message
+      body: responses[ Math.floor(Math.random() * 4) ] // body of the SMS message
 
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
