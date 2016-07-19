@@ -4,7 +4,7 @@ const app = express()
 
 /* Set up the app preferences. */
 app.use( require('body-parser').urlencoded({ 'extended': true }) )
-const client = twilio('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f64c16992af455')
+const client = twilio.RestClient('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f64c16992af455')
 
 /* DB variable. */
 var db;
