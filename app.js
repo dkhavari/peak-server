@@ -30,14 +30,14 @@ app.post('/sms', (req, res) => {
   const sender = data.From
 
   console.log('We\'ve received a text...')
-  console.log('It\'s from: ', sender)
+  console.log('Sender: ', sender)
   console.log('Message: ', message)
 
   const responses = [
     'Great work. Absolutely massive!',
     'You can do it! You\'ll be proud after you\'ve finished!',
     'Morning, David! Take 3 minutes to complete your activity: stretching.',
-    'Today is the best day for massive action! [3 minutes of stretching].'
+    'Today is the best day for massive action! (3 minutes of stretching).'
   ]
 
   return client.sendMessage({
