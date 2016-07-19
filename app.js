@@ -33,7 +33,7 @@ app.post('/sms', (req, res) => {
   console.log('It\'s from: ', sender)
   console.log('Message: ', message)
 
-  client.sendMessage({
+  return client.sendMessage({
 
       to: '+16507141506', // Any number Twilio can deliver to
       from: '+16506141866', // A number you bought from Twilio and can use for outbound communication
