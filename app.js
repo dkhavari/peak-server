@@ -1,10 +1,9 @@
 const express = require('express')
-const twilio = require('twilio')
 const app = express()
 
 /* Set up the app preferences. */
 app.use( require('body-parser').urlencoded({ 'extended': true }) )
-const client = twilio('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f64c16992af455')
+const client = require('twilio')('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f64c16992af455')
 
 /* DB variable. */
 var db;
@@ -33,5 +32,21 @@ app.post('/sms', (req, res) => {
   console.log('We\'ve received a text...')
   console.log('It\'s from: ', sender)
   console.log('Message: ', message)
+
+  client.sendMessage({
+
+      to:'+16515556677', // Any number Twilio can deliver to
+      from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
+      body: 'word to your mother.' // body of the SMS message
+
+  }, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+      if (!err) { // "err" is an error received during the request, if any
+
+          console.log(responseData.from); // outputs "+14506667788"
+          console.log(responseData.body); // outputs "word to your mother."
+
+      }
+  });
 
 })
