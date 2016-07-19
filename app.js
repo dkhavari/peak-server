@@ -53,6 +53,12 @@ app.post('/sms', (req, res) => {
           console.log(responseData.from); // outputs "+14506667788"
           console.log(responseData.body); // outputs "word to your mother."
 
+      } else {
+
+        res.send({
+          message: "Thanks, your message has been received!"
+        })
+
       }
   });
 
