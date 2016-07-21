@@ -40,26 +40,29 @@ app.post('/sms', (req, res) => {
     'Today is the best day for massive action! (3 minutes of stretching).'
   ]
 
-  client.sendMessage({
+  // Respond using Twilio's XML.
+  let response = new twilio.TwimlResponse()
+  response.message( responses[ Math.floor(Math.random() * 4) ] )
+  res.writeHead(200, {
+    'Content-Type': 'text/xml'
+  })
+  res.end(resp.toString())
 
-      to: '+16507141506', // Any number Twilio can deliver to
-      from: '+16506141866', // A number you bought from Twilio and can use for outbound communication
-      body: responses[ Math.floor(Math.random() * 4) ] // body of the SMS message
-
-  }, function(err, responseData) { //this function is executed when a response is received from Twilio
-
-      if (!err) { // "err" is an error received during the request, if any
-
-          console.log(responseData.from); // outputs "+14506667788"
-          console.log(responseData.body); // outputs "word to your mother."
-
-      } else {
-
-        res.send({
-          message: "Thanks, your message has been received!"
-        })
-
-      }
-  });
+  // client.sendMessage({
+  //
+  //     to: '+16507141506', // Any number Twilio can deliver to
+  //     from: '+16506141866', // A number you bought from Twilio and can use for outbound communication
+  //     body: responses[ Math.floor(Math.random() * 4) ] // body of the SMS message
+  //
+  // }, function(err, responseData) { //this function is executed when a response is received from Twilio
+  //
+  //     if (!err) { // "err" is an error received during the request, if any
+  //
+  //         console.log(responseData.from); // outputs "+14506667788"
+  //         console.log(responseData.body); // outputs "word to your mother."
+  //
+  //     }
+  //
+  // });
 
 })
