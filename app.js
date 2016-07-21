@@ -21,7 +21,7 @@ MongoClient.connect('mongodb://peak-user:littlebylittle@ds023485.mlab.com:23485/
 
 /* Create some routes. */
 app.get('/', (req, res) => {
-  res.send('Peak text messaging server version 1.0.')
+  res.end('Peak text messaging server version 1.0.')
 })
 
 app.post('/sms', (req, res) => {
@@ -47,23 +47,6 @@ app.post('/sms', (req, res) => {
   res.writeHead(200, {
     'Content-Type': 'text/xml'
   })
-  res.end(response.toString())
-
-  // client.sendMessage({
-  //
-  //     to: '+16507141506', // Any number Twilio can deliver to
-  //     from: '+16506141866', // A number you bought from Twilio and can use for outbound communication
-  //     body: responses[ Math.floor(Math.random() * 4) ] // body of the SMS message
-  //
-  // }, function(err, responseData) { //this function is executed when a response is received from Twilio
-  //
-  //     if (!err) { // "err" is an error received during the request, if any
-  //
-  //         console.log(responseData.from); // outputs "+14506667788"
-  //         console.log(responseData.body); // outputs "word to your mother."
-  //
-  //     }
-  //
-  // });
+  res.send(response.toString())
 
 })
