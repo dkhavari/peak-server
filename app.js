@@ -1,9 +1,10 @@
 const express = require('express')
-const app = express()
+const twilio  = require('twilio')
+const app     = express()
 
 /* Set up the app preferences. */
 app.use( require('body-parser').urlencoded({ 'extended': true }) )
-const client = require('twilio')('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f64c16992af455')
+const client = twilio('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f64c16992af455')
 
 /* DB variable. */
 var db;
