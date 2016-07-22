@@ -48,6 +48,12 @@ app.post('/sms', (req, res) => {
   // Check with the database which response we should send.
   let collection = db.collection('metadata')
   let number = 0
+
+  collection.findOneAsync({})
+    .then( (err, doc) => {
+      console.log('El documento: ', doc)
+    })
+
   // let results = collection.findOne({}, (err, doc) => {
   //   console.log('Document: ', doc)
   //   number = doc.messages
