@@ -50,32 +50,34 @@ app.post('/sms', (req, res) => {
   let number = 0
 
   collection.findOneAsync({})
-    .then( (err, doc) => {
-      console.log('El documento: ', err)
+    .then( (doc) => {
+
+      // For testing purposes.
+      console.log(doc)
+
+      // Logic for incrementing & looping.
+      let currentCount = doc.messages
+      doc.messages = (currentCount + 1) % 3
+      number = doc.messages
+
+      return collection.saveAsync(doc)
+
     })
+    .then( () => {
 
-  // let results = collection.findOne({}, (err, doc) => {
-  //   console.log('Document: ', doc)
-  //   number = doc.messages
-  //   // Incrementing logic.
-  //   doc.messages += 1
-  //   // Now save the doc again.
-  //   collection.save(doc, (err, result) => {
-  // 		if (err) return console.log(err)
-  // 	})
-  // })
+      // Testing.
+      console.log('And we leave with...', number)
 
-  // Testing.
-  console.log('And we leave with...', number)
+      // Respond using Twilio's XML.
+      let response = new twilio.TwimlResponse()
+      response.message( responses[ Math.floor(Math.random() * 3) ] )
 
-  // Respond using Twilio's XML.
-  let response = new twilio.TwimlResponse()
-  response.message( responses[ Math.floor(Math.random() * 3) ] )
+      // Twilio response code.
+      res.writeHead(200, {
+        'Content-Type': 'text/xml'
+      })
+      res.end(response.toString())
 
-  // Twilio response code.
-  res.writeHead(200, {
-    'Content-Type': 'text/xml'
-  })
-  res.end(response.toString())
+    })
 
 })
