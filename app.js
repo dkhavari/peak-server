@@ -51,7 +51,7 @@ app.post('/sms', (req, res) => {
 
   collection.findOneAsync({})
     .then( (err, doc) => {
-      console.log('El documento: ', doc)
+      console.log('El documento: ', err)
     })
 
   // let results = collection.findOne({}, (err, doc) => {
