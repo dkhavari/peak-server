@@ -35,15 +35,21 @@ app.post('/sms', (req, res) => {
   console.log('Message: ', message)
 
   const responses = [
-    'Great work. Absolutely massive!',
-    'You can do it! You\'ll be proud after you\'ve finished!',
-    'Morning, David! Take 3 minutes to complete your activity: stretching.',
-    'Today is the best day for massive action! (3 minutes of stretching).'
+    'Awesome goal, David. What could you do daily for 3 minutes or less that would help you get there?',
+    'Fantastic. What time of day do you like to be reminded?',
+    'Scheduled! You\'re on your way :)'
   ]
+
+  // Check with the database which response we should send.
+  let collection = db.collection('metadata')
+  let results = collection.find({})
+  console.log('Here\'s what we\'ve got: ', results)
 
   // Respond using Twilio's XML.
   let response = new twilio.TwimlResponse()
-  response.message( responses[ Math.floor(Math.random() * 4) ] )
+  response.message( responses[ Math.floor(Math.random() * 3) ] )
+
+  // Twilio response code.
   res.writeHead(200, {
     'Content-Type': 'text/xml'
   })
