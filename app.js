@@ -70,7 +70,7 @@ app.post('/sms', (req, res) => {
 
       // Respond using Twilio's XML.
       let response = new twilio.TwimlResponse()
-      response.message( responses[ number ] )
+      response.message( responses[ index ] )
 
       // Twilio response code.
       res.writeHead(200, {
