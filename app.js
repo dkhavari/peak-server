@@ -26,11 +26,12 @@ app.get('/', (req, res) => {
 
 app.post('/sms', (req, res) => {
 
+  // Retrieve the relevant data.
   const data = req.body
   const message = data.Body
   const sender = data.From
 
-  console.log('We\'ve received a text...')
+  // Log the received text message.
   console.log('Sender: ', sender)
   console.log('Message: ', message)
 
@@ -44,7 +45,6 @@ app.post('/sms', (req, res) => {
   let collection = db.collection('metadata')
   let results = collection.findOne({}).toArray( (err, docs) => {
     console.log('Gunda', docs)
-
   })
 
   // Respond using Twilio's XML.
