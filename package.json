@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/dkhavari/peak-server#readme",
   "dependencies": {
+    "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "mongodb": "^2.2.4",

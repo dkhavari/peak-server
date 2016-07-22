@@ -1,4 +1,5 @@
 const express = require('express')
+const Promise = require('bluebird')
 const twilio  = require('twilio')
 const app     = express()
 
@@ -10,14 +11,17 @@ const client = twilio('AC03e3a536e021b967055135bd661eddbc', 'c9c55b4affaf124730f
 var db;
 
 /* Connect to MongoDB. */
-const MongoClient = require('mongodb').MongoClient;
-MongoClient.connect('mongodb://peak-user:littlebylittle@ds023485.mlab.com:23485/messages', (err, database) => {
-        if (err) return console.log(err)
-        db = database
-        app.listen(3000, () => {
-                console.log('Peak server is now listening on port 3000...')
-        })
-})
+const MongoDB = Promise.promisifyAll( require('mongodb') )
+
+/* Start off the database connection. */
+const MongoClient = MongoDB.MongoClient;
+MongoClient.connectAsync('mongodb://peak-user:littlebylittle@ds023485.mlab.com:23485/messages')
+  .then( (database) => {
+    db = database
+    app.listen(3000, () => {
+      console.log('Peak server is now listening on port 3000...')
+    })
+  })
 
 /* Create some routes. */
 app.get('/', (req, res) => {
@@ -44,16 +48,16 @@ app.post('/sms', (req, res) => {
   // Check with the database which response we should send.
   let collection = db.collection('metadata')
   let number = 0
-  let results = collection.findOne({}, (err, doc) => {
-    console.log('Document: ', doc)
-    number = doc.messages
-    // Incrementing logic.
-    doc.messages += 1
-    // Now save the doc again.
-    collection.save(doc, (err, result) => {
-  		if (err) return console.log(err)
-  	})
-  })
+  // let results = collection.findOne({}, (err, doc) => {
+  //   console.log('Document: ', doc)
+  //   number = doc.messages
+  //   // Incrementing logic.
+  //   doc.messages += 1
+  //   // Now save the doc again.
+  //   collection.save(doc, (err, result) => {
+  // 		if (err) return console.log(err)
+  // 	})
+  // })
 
   // Testing.
   console.log('And we leave with...', number)
