@@ -43,8 +43,8 @@ app.post('/sms', (req, res) => {
 
   // Check with the database which response we should send.
   let collection = db.collection('metadata')
-  let results = collection.findOne({}, err, docs) => {
-    console.log('Gunda', docs)
+  let results = collection.findOne({}, (err, doc) => {
+    console.log('Document: ', doc)
   })
 
   // Respond using Twilio's XML.
