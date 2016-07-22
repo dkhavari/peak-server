@@ -43,9 +43,14 @@ app.post('/sms', (req, res) => {
 
   // Check with the database which response we should send.
   let collection = db.collection('metadata')
+  let number = 0
   let results = collection.findOne({}, (err, doc) => {
     console.log('Document: ', doc)
+    number = doc.messages
   })
+
+  // Testing.
+  console.log('And we leave with...', number)
 
   // Respond using Twilio's XML.
   let response = new twilio.TwimlResponse()
