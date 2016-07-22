@@ -47,7 +47,7 @@ app.post('/sms', (req, res) => {
 
   // Check with the database which response we should send.
   let collection = db.collection('metadata')
-  let number = 0
+  let index = 0
 
   collection.findOneAsync({})
     .then( (doc) => {
@@ -58,7 +58,7 @@ app.post('/sms', (req, res) => {
       // Logic for incrementing & looping.
       let currentCount = doc.messages
       doc.messages = (currentCount + 1) % 3
-      number = doc.messages
+      index = doc.messages
 
       return collection.saveAsync(doc)
 
@@ -66,11 +66,11 @@ app.post('/sms', (req, res) => {
     .then( () => {
 
       // Testing.
-      console.log('And we leave with...', number)
+      console.log('And we leave with...', index)
 
       // Respond using Twilio's XML.
       let response = new twilio.TwimlResponse()
-      response.message( responses[ Math.floor(Math.random() * 3) ] )
+      response.message( responses[ number ] )
 
       // Twilio response code.
       res.writeHead(200, {
