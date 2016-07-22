@@ -47,6 +47,12 @@ app.post('/sms', (req, res) => {
   let results = collection.findOne({}, (err, doc) => {
     console.log('Document: ', doc)
     number = doc.messages
+    // Incrementing logic.
+    doc.messages += 1
+    // Now save the doc again.
+    collection.save(doc, (err, result) => {
+  		if (err) return console.log(err)
+  	})
   })
 
   // Testing.
