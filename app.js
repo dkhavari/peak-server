@@ -42,7 +42,8 @@ app.post('/sms', (req, res) => {
   const responses = [
     'Awesome goal, David. What could you do daily for 3 minutes or less that would help you get there?',
     'Fantastic. What time of day do you like to be reminded?',
-    'Scheduled! You\'re on your way :)'
+    'Scheduled! You\'re on your way :)',
+    'Great work. Way to follow through!'
   ]
 
   // Check with the database which response we should send.
@@ -57,7 +58,7 @@ app.post('/sms', (req, res) => {
 
       // Logic for incrementing & looping.
       let currentCount = doc.messages
-      doc.messages = (currentCount + 1) % 3
+      doc.messages = (currentCount + 1) % responses.length
       index = doc.messages
 
       return collection.saveAsync(doc)
